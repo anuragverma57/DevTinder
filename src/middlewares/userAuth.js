@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const { errorResponse } = require("../utils/response");
 
 const SECRET_KEY = "DEV@TINDER#12-09-2002"
 const userAuth = async (req, res, next) => {
@@ -17,7 +18,7 @@ const userAuth = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        res.status(400).send("Error : " + error.message);
+        res.status(400).json(errorResponse(error));
     }
 
 }

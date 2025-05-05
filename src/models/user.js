@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
         trim: true,
         validate(value) {
             if (!validators.isEmail(value)) throw new Error("Email is not valid");
@@ -40,7 +41,7 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["Male", "Female"],
+        enum: ["male", "female"],
     },
     photoURL: {
         type: String,

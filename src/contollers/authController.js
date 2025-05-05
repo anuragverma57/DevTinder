@@ -2,6 +2,10 @@ const { validateSignUpData, validateLogInData } = require('../utils/validation')
 const User = require("../models/user")
 const bcrypt = require('bcrypt');
 
+const { errorResponse, successResponse } = require("../utils/response");
+const { log } = require('console');
+const { sanitizeUser } = require('../utils/sanitization');
+
 const login = async (req, res) => {
     try {
         validateLogInData(req)
@@ -18,27 +22,29 @@ const login = async (req, res) => {
             // Setting the token in res
             res.cookie("token", token, { expires: new Date(Date.now() + (7 * 24 * 3600000)) }); // 7 days
 
-            res.status(200).send("User logged in successfully");
+            const sanitizedUser = sanitizeUser(user)
+            res.status(200).json(successResponse(sanitizedUser));
         } else {
             throw new Error("Invalid Credentials");
         }
     } catch (error) {
-        res.status(400).send("Error logging user : " + error.message);
+        res.status(400).json(errorResponse(error));
     }
 }
 
 const signUp = async (req, res) => {
     try {
-        // Step 1 - Validation of data - Very Imp Step - NEVER TRUST REQ.BODY
         validateSignUpData(req);
 
         const { emailId, password, firstName, lastName } = req.body
 
-        // Step 2 - Encrypt the password 
+        const isAlreadyPresent = await User.findOne({ emailId });
+        if (isAlreadyPresent) {
+            throw new Error("This Email is already in use, Try using another email")
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
-
-        // Step 3 - Create an instance of User model
         const user = new User({
             firstName,
             lastName,
@@ -47,12 +53,15 @@ const signUp = async (req, res) => {
         })
 
         // Step 4 - save user instance to database
-        await user.save();
+        let newUser = await user.save();
+
+
+        const sanitizedUser = sanitizeUser(newUser);
 
         // Step 5 - send response
-        res.send("user Register");
-    } catch (err) {
-        res.status(400).send("Error creating user : " + err.message);
+        res.json(successResponse(sanitizedUser));
+    } catch (error) {
+        res.status(400).json(errorResponse(error));
     }
 }
 
@@ -62,9 +71,9 @@ const logOut = async (req, res) => {
         res.cookie("token", null, {
             expires: new Date(Date.now())
         });
-        res.status(200).send("User logged Out successfully");
+        res.status(200).json("User logged Out successfully");
     } catch (error) {
-        res.status(400).send("Error logging out : " + error.message);
+        res.status(400).json(errorResponse(error));
     }
 }
 

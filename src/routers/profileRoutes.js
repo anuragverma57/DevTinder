@@ -5,7 +5,7 @@ const profileRouter = express.Router();
 
 
 profileRouter.get("/view", userAuth, profileController.getUserProfile);
-profileRouter.patch("/update", userAuth, profileController.updateUser);
-// profileRouter.patch("/password", userAuth);
+profileRouter.patch("/update", userAuth, profileController.updateProfile);
+profileRouter.patch("/password", userAuth, profileController.changePassword);
 
 module.exports = profileRouter;

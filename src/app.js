@@ -9,7 +9,8 @@ const { userAuth } = require("./middlewares/userAuth")
 const authRouter = require("./routers/authRoutes")
 const profileRouter = require("./routers/profileRoutes")
 const userRouter = require("./routers/userRoutes")
-const requestRouter = require("./routers/requestRoutes")
+const requestRouter = require("./routers/requestRoutes");
+const { errorResponse } = require("./utils/response");
 
 PORT = 8000;
 
@@ -24,18 +25,15 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-
-
-
 app.use("/auth", authRouter)
 app.use("/profile", userAuth, profileRouter)
-app.use("/user", userAuth, userRouter)
 app.use("/request", userAuth, requestRouter)
+app.use("/user", userAuth, userRouter)
 
 
-app.use("/", (err, req, res, next) => {
-    console.error(err.message)
-    res.status(500).send("Something went wrong");
+app.use("/", (error, req, res, next) => {
+    console.error(error.message)
+    res.status(500).json(errorResponse(error));
 })
 
 
@@ -44,8 +42,8 @@ connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Backend Server is listening on Port : ${PORT}`);
     })
-}).catch((err) => {
-    console.error("Not Connected : ", err.message)
+}).catch((error) => {
+    console.error("Not Connected : ", error.message)
 })
 
 

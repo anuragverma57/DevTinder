@@ -15,7 +15,6 @@ const validateSignUpData = (req) => {
     }
 }
 
-
 const validateLogInData = (req) => {
     const { emailId, password } = req.body
     if (!emailId || !password) {
@@ -28,4 +27,78 @@ const validateLogInData = (req) => {
     }
 }
 
-module.exports = { validateSignUpData, validateLogInData }
+const validateEditProfileData = (req) => {
+
+    const { skills, age, firstName, lastName, gender, about, photoURL } = req.body;
+
+    const ALLOWED_FIELDS = [
+        "skills",
+        "age",
+        "firstName",
+        "lastName",
+        "gender",
+        "about",
+        "photoURL"
+    ]
+
+    const isAllowed = Object.keys(req.body).every((e) => ALLOWED_FIELDS.includes(e));
+    if (!isAllowed) return false;
+
+
+    if (gender && !["male", "female"].includes(gender.toLowerCase())) {
+        throw new Error("Gender must be 'male' or 'female'.");
+    }
+
+    if (gender) {
+        req.body.gender = gender.toLowerCase()
+    }
+
+    // Age validation
+    if (age !== undefined) {
+        if (!validator.isInt(String(age), { min: 15 })) {
+            throw new Error("Age must be an integer greater than 14.");
+        }
+    }
+
+    // First name validation
+    if (firstName && !validator.isAlpha(firstName, 'en-US', { ignore: " -" })) {
+        throw new Error("First name must contain only letters.");
+    }
+
+    // Last name validation
+    if (lastName && !validator.isAlpha(lastName, 'en-US', { ignore: " -" })) {
+        throw new Error("Last name must contain only letters.");
+    }
+
+    // About validation
+    if (about && !validator.isLength(about, { min: 0, max: 500 })) {
+        throw new Error("About must be 500 characters or less.");
+    }
+
+    // Photo URL validation
+    if (photoURL && !validator.isURL(photoURL)) {
+        throw new Error("Photo URL must be a valid URL.");
+    }
+
+    // Skills validation
+    if (skills && !Array.isArray(skills)) {
+        throw new Error("Skills must be an array.");
+    }
+
+    return isAllowed
+}
+
+const validateEditPasswordData = (req) => {
+    const { oldPassword, newPassword } = req.body
+    if (!oldPassword || !newPassword) {
+        throw new Error("Enter both the passwords new and old")
+    }
+    if (oldPassword == newPassword) {
+        throw new Error("Same as old one: Try something Different")
+    }
+    if (!validator.isStrongPassword(newPassword)) {
+        throw new Error("Create a strong password")
+    }
+}
+
+module.exports = { validateSignUpData, validateLogInData, validateEditProfileData, validateEditPasswordData }

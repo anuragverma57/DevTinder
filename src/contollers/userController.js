@@ -1,4 +1,5 @@
 const { validateSignUpData, validateLogInData } = require('../utils/validation')
+const { errorResponse } = require("../utils/response");
 const User = require("../models/user")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
@@ -12,8 +13,8 @@ const getAllUser = async (req, res) => {
             data: users
         });
     }
-    catch (err) {
-        res.status(400).send("Error creating user : " + err.message);
+    catch (error) {
+        res.status(400).json(errorResponse(error));
     }
 }
 

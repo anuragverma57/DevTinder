@@ -1,36 +1,23 @@
-const User = require("../models/user")
+const Request = require("../models/request")
+const { errorResponse } = require("../utils/response");
 
 
 const sendConnectionRequest = async (req, res) => {
     try {
+        const loggedInUser = req.user
         res.send("Request Send")
-    } catch (err) {
-        res.send("Error : " + err.message);
+    } catch (error) {
+        res.status(400).json(errorResponse(error));
     }
 }
-const ignore = async (req, res) => {
-    try {
-        res.send("Person Ignored")
-    } catch (err) {
-        res.send("Error : " + err.message);
-    }
-}
-const acceptRequest = async (req, res) => {
+const respondToRequest = async (req, res) => {
     try {
         const user = req.user;
         res.send("Request Accepted")
-    } catch (err) {
-        res.send("Error : " + err.message);
-    }
-}
-const rejectRequest = async (req, res) => {
-    try {
-        const user = req.user;
-        res.send("Request Accepted")
-    } catch (err) {
-        res.send("Error : " + err.message);
+    } catch (error) {
+        res.status(400).json(errorResponse(error));
     }
 }
 module.exports = {
-    rejectRequest, sendConnectionRequest, acceptRequest, ignore
+    sendConnectionRequest, respondToRequest,
 }
