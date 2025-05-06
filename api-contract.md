@@ -37,12 +37,12 @@
 
 ### RequestRoutes
 
-- /request/send/interested/:userId
-- /request/send/ignored/:userId
+- /request/send/interested/:userId [X]
+- /request/send/ignored/:userId [X]
 
-- /request/accepted/:requestId
-- /request/rejected/:requestId
+- /request/review/accepted/:requestId[X]
+- /request/review/rejected/:requestId[X]
 
 ### UserRoutes
 
-- /user
+- /user/feed [X]

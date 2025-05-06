@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose')
 const validator = require('validator')
 
 const validateSignUpData = (req) => {
@@ -101,4 +102,28 @@ const validateEditPasswordData = (req) => {
     }
 }
 
-module.exports = { validateSignUpData, validateLogInData, validateEditProfileData, validateEditPasswordData }
+const validateConnectionRequestData = (req) => {
+    const { status, userId } = req.params;
+
+    if (status != "interested" && status !== "ignored") {
+        throw new Error("Status can only be interested or ignored nothing else");
+    }
+
+    if (!mongoose.isValidObjectId(userId)) {
+        throw new Error("Invalid Id");
+    }
+}
+
+const validateRespondToRequestData = (req) => {
+    const { status, requestId } = req.params;
+
+    if (status != "accepted" && status !== "rejected") {
+        throw new Error("Request can only be accepted or rejected nothing else");
+    }
+
+    if (!mongoose.isValidObjectId(requestId)) {
+        throw new Error("Invalid Id");
+    }
+}
+
+module.exports = { validateSignUpData, validateLogInData, validateEditProfileData, validateEditPasswordData, validateConnectionRequestData, validateRespondToRequestData }

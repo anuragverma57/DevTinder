@@ -6,7 +6,8 @@ const requestController = require("../contollers/requestController")
 
 
 requestRouter.post("/send/:status/:userId", userAuth, requestController.sendConnectionRequest);
-requestRouter.post("/:status/:requestId", userAuth, requestController.respondToRequest);
+
+requestRouter.post("/review/:status/:requestId", userAuth, requestController.reviewConnectionRequest);
 
 
 module.exports = requestRouter;
