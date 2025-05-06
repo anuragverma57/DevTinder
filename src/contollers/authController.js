@@ -3,7 +3,6 @@ const User = require("../models/user")
 const bcrypt = require('bcrypt');
 
 const { errorResponse, successResponse } = require("../utils/response");
-const { log } = require('console');
 const { sanitizeUser } = require('../utils/sanitization');
 
 const login = async (req, res) => {

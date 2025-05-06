@@ -7,4 +7,4 @@ function sanitizeUser(obj) {
     return user;
 }
 
-module.exports = { sanitizeUser }
+module.exports = { sanitizeUser, SAFE_FIELDS }

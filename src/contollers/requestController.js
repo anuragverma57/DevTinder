@@ -1,7 +1,6 @@
 const ConnectionRequest = require("../models/request");
 const User = require("../models/user");
 const { errorResponse, successResponse } = require("../utils/response");
-const { sanitizeUser } = require("../utils/sanitization");
 const { validateConnectionRequestData, validateRespondToRequestData } = require("../utils/validation")
 
 
@@ -10,8 +9,8 @@ const sendConnectionRequest = async (req, res) => {
         validateConnectionRequestData(req);
         const { status, userId } = req.params;
 
-        let loggedInUser = req.user;
-        let toUser = await User.findById(userId);
+        const loggedInUser = req.user;
+        const toUser = await User.findById(userId);
 
         if (!toUser) {
             throw new Error("User not found");
@@ -59,6 +58,10 @@ const reviewConnectionRequest = async (req, res) => {
 
         if (!existingReq) {
             throw new Error("Request not found");
+        }
+
+        if (!existingReq.toUserId.equals(loggedInUser._id)) {
+            throw new Error("You cannot change the status of someone else's request")
         }
 
         if (existingReq.status != "interested") {
