@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "8eb5a6a0-2b4e-46a0-8f9d-77a7a74003ac",
+		"name": "DevTinder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21917804",
+		"_collection_link": "https://cloudy-trinity-479663.postman.co/workspace/DevTinder~39542fbe-38f5-460d-803b-220346851abd/collection/21917804-8eb5a6a0-2b4e-46a0-8f9d-77a7a74003ac?action=share&source=collection_link&creator=21917804"
+	},
+	"item": [
+		{
+			"name": "/auth/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Anurag\",\n    \"lastName\": \"Verma\",\n    \"emailId\": \"anurag@gmail.com\",\n    \"password\": \"Anurag@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ":8000/auth/signup",
+					"port": "8000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/login",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emailId\": \"Shikhar@gmail.com\",\n    \"password\": \"Shikhar@123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/logout",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emailId\": \"Shikhar@gmail.com\",\n    \"password\": \"Shikhar@123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile/view",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/profile/view",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"profile",
+						"view"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/profile/update",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Shikhar\",\n    \"age\": \"47\",\n    \"gender\":\"Male\",\n    \"skills\": [\"java\", \"js\", \"react\", \"next\", \"node\", \"expresss\", \"c++\", \"go\", \"c#\", \"mongoDB\", \"sql\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/profile/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"profile",
+						"update"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/profile/password",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"oldPassword\" :\"Shikhar@123456\",\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/profile/password",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"profile",
+						"password"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/request/send",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/request/send/interested/68175d81b468bea046e3a481",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"request",
+						"send",
+						"interested",
+						"68175d81b468bea046e3a481"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/request/review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/request/send/interested/68175d81b468bea046e3a481",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"request",
+						"send",
+						"interested",
+						"68175d81b468bea046e3a481"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/requests/recieved",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user/feed",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/connections",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user/feed",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/feed",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user/feed",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

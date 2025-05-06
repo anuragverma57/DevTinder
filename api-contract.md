@@ -37,12 +37,19 @@
 
 ### RequestRoutes
 
-- /request/send/interested/:userId [X]
-- /request/send/ignored/:userId [X]
+- POST /request/send/:status/:userId [X]
+- POST /request/send/interested/:userId [X]
+- POST /request/send/ignored/:userId [X]
 
-- /request/review/accepted/:requestId[X]
-- /request/review/rejected/:requestId[X]
+- POST /request/review/:status/:requestId [X]
+- POST /request/review/accepted/:requestId [X]
+- POST /request/review/rejected/:requestId [X]
 
 ### UserRoutes
 
-- /user/feed [X]
+- GET /user/feed [X] Pagination also done in this api
+- GET /connections [X]
+
+- GET /requests/:type [X]
+- GET /requests/:sent [X]
+- GET /requests/:recieved [X]
